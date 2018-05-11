@@ -103,27 +103,22 @@ class App extends Component {
 
           <div className="App"> 
 
-
-          <header className="App-header">
-            
+          <header className="App-header">  
             <div className="App-header-nav">
               
             </div>
 
-            <Clock format={'MMMM DD, YYYY hh:mm:ss z'} ticking={true} timezone={'UTC'} />
-
-            
+            <div className="App-header-clock">
+              <Clock format={'MMMM DD, YYYY hh:mm:ss z'} ticking={true} timezone={'UTC'} />
+            </div>
           </header>
 
-
-         
-
-          
+         <div className="App-header-content-spacer">&nbsp;</div>
 
           <div className="App-content">
             <div className="App-content-inner">
 
-                <br/><br/><br/><br/><br/><br/><br/><br/>
+              <br/><br/>
 
               <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Report 1">
