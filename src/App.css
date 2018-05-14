@@ -35,21 +35,45 @@
 }
 
 .App-content {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:40em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+/* .App-content {
   position: relative;
   width: 50%;
   height: 50%;
 
   background: rgba(0, 255, 255, 0.5);
-}
+} */
 
 .App-content-inner {
+
   position: absolute;
+
+  position:fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-25%, -25%);
 
   background: rgba(255, 255, 0, 0.5);
 }
 
+
+
+
+
+
 .Main-app {
-  
+
 }
 
 
