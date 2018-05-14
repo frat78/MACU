@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import Clock from 'react-live-clock';
 import {Tabs, Tab, ControlledTabs} from 'react-bootstrap';
+import Datetime from 'react-datetime';
 
 import './App.css';
 
@@ -100,7 +101,6 @@ class App extends Component {
 
     return (
 
-
           <div className="App">
 
             <header className="App-header"> 
@@ -115,30 +115,57 @@ class App extends Component {
 
             <div className="App-header-content-spacer">&nbsp;</div>
 
-
             <div className="App-content">
 
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                   <Tab eventKey={1} title="Report 1">
-                    Tab 1 content
+                    <div className="Report-title">
+                      <h3>Flight Report 1</h3>
+                    </div>
+
+                    <div className="Report-options">
+
+                        <font className="Report-title">Start Date:</font><Datetime ID="report1Start" input="false"/>
+                        <font className="Report-title">End Date:</font> <Datetime ID="report1End" />
+
+                    </div>
+
+                    <div className="Report-content">
+
+                    </div>
                   </Tab>
                   <Tab eventKey={2} title="Report 2">
-                    Tab 2 content
+                    <div className="Report-content">
+
+                      Flight Report 2
+
+                    </div>
                   </Tab>
                   <Tab eventKey={3} title="Report 3">
-                    Tab 3 content
+                    <div className="Report-content">
+
+                      Flight Report 3
+
+                    </div>
                   </Tab>
                    <Tab eventKey={4} title="Report 4">
-                    Tab 4 content
+                    <div className="Report-content">
+
+                      Flight Report 4
+
+                    </div>
                   </Tab>
                    <Tab eventKey={5} title="Report 5">
-                    Tab 5 content
+                    <div className="Report-content">
+
+                      Flight Report 5
+
+                    </div>
                   </Tab>
                 </Tabs>
 
             </div>
         </div>
-
 
     );
   }
