@@ -50,7 +50,7 @@ class App extends Component {
       xhttp.setRequestHeader("Cookie", "sessionid=" + sessionKey);
       xhttp.send();
 
-    } catch (ex) { console.log("ERRROR IN QUERY::: " + ex) } 
+    } catch (ex) { console.log("ERRROR IN QUERY::: " + ex) }
 
     console.log("Completed query...");
   }
@@ -73,10 +73,10 @@ class App extends Component {
         console.log("Session Key===" + this.responseText.substring(this.responseText.indexOf("sessionkey")+12, this.responseText.indexOf("\"", this.responseText.indexOf("sessionkey")+12)));
 
         if (this.responseText.indexOf("sessionkey") > -1) {
-          sessionKey = this.responseText.substring(this.responseText.indexOf("sessionkey") + 12, this.responseText.indexOf("\"", this.responseText.indexOf("sessionkey") + 12 )); 
+          sessionKey = this.responseText.substring(this.responseText.indexOf("sessionkey") + 12, this.responseText.indexOf("\"", this.responseText.indexOf("sessionkey") + 12 ));
           that.queryForTerminals();
         }
-        
+
 
         if (this.readyState == 4 && this.status == 200) {
           //var xmlMsg = this.responseXML;
@@ -89,41 +89,38 @@ class App extends Component {
       //xhttp.setRequestHeader("Access-Control-Allow-Credentials", "true");
       xhttp.send(requestPayload);
 
-    } catch (ex) { console.log("ERROR IN LOGIN::: " + ex) } 
+    } catch (ex) { console.log("ERROR IN LOGIN::: " + ex) }
 
     console.log("Completed login...");
   }
 
-  
+
   render() {
       { if (sessionKey === "") this.login() }
 
     return (
-          
 
-          <div className="App"> 
+
+          <div className="App">
 
 
           <header className="App-header">
-            
+
             <div className="App-header-nav">
-              
+
             </div>
 
             <Clock format={'MMMM DD, YYYY hh:mm:ss z'} ticking={true} timezone={'UTC'} />
 
-            
+
           </header>
 
 
-         
 
-          
+
+
 
           <div className="App-content">
-            <div className="App-content-inner">
-
-                <br/><br/><br/><br/><br/><br/><br/><br/>
 
               <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Report 1">
@@ -143,18 +140,14 @@ class App extends Component {
                 </Tab>
               </Tabs>
 
-            </div>
           </div>
-
-          
-
-        </div> 
+        </div>
 
 
     );
   }
 }
 
- 
+
 
 export default App;
