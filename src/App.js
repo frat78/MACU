@@ -28,18 +28,28 @@ class App extends Component {
 
   }
 
-  onChange = (e) => {
+  onStartDateChange = (e) => {
     this.setState({startdate: e._d});
-    //when changing form field values, capture the state
-        // var state = this.state;
-        // state[e.target.name].value = e.target.value;
-        // this.setState(state);
       }
+
+      onEndDateChange = (e) => {
+        this.setState({enddate: e._d});
+          }
 
   processFlightReport(e)
 {
   const startdate = this.state.startdate;
-  alert(startdate);
+  const enddate = this.state.enddate;
+
+  if (enddate < startdate)
+  {
+    alert('end date cannot be before start date.  Come on man, pay attention.');
+  }
+  else
+  {
+    alert('start date:' + startdate + 'end date:' + enddate);
+  }
+
 
   }
 
@@ -236,12 +246,12 @@ class App extends Component {
 
     <FormGroup controlId="formValidationWarning4" validationState="warning">
       <ControlLabel>Start Date</ControlLabel>
-      <Datetime ID="report1Start" input="false" onChange={this.onChange}/>
+      <Datetime ID="report1Start" input="false" onChange={this.onStartDateChange}/>
     </FormGroup>
 
     <FormGroup controlId="formValidationWarning4" validationState="warning">
       <ControlLabel>End Date</ControlLabel>
-      <Datetime ID="reportEnd" input="false" onChange={this.onChange}/>
+      <Datetime ID="reportEnd" input="false" onChange={this.onEndDateChange}/>
     </FormGroup>
 
     <FormGroup>
@@ -251,8 +261,6 @@ class App extends Component {
   </FormGroup>
   </Form>
 
-
->>>>>>> Stashed changes
 
 
                     </div>
