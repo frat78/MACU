@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Clock from 'react-live-clock';
-import {Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
+import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import ReactTable from "react-table";
 
@@ -27,6 +27,23 @@ class App extends Component {
   componentDidMount() {
 
   }
+
+  onChange = (e) => {
+    this.setState({startdate: e._d});
+    //when changing form field values, capture the state
+        // var state = this.state;
+        // state[e.target.name].value = e.target.value;
+        // this.setState(state);
+      }
+
+  processFlightReport(e)
+{
+  const startdate = this.state.startdate;
+  alert(startdate);
+
+  }
+
+
 
   tabChange(key) {
     alert(`selected ${key}`);
@@ -100,7 +117,7 @@ class App extends Component {
   render() {
     { if (sessionKey === "") this.login() }
 
-    
+
     const data = [{
       name: 'Tanner Linsley',
       age: 26,
@@ -176,7 +193,7 @@ class App extends Component {
     }, {
       Header: 'Age',
       accessor: 'age',
-      Cell: props => <span className='number'>{props.value}</span> 
+      Cell: props => <span className='number'>{props.value}</span>
     }, {
       id: 'friendName', // Required because our accessor is not a string
       Header: 'Friend Name',
@@ -185,7 +202,7 @@ class App extends Component {
       Header: props => <span>Friend Age</span>, // Custom header components!
       accessor: 'friend.age'
     }]
-    
+
 
     return (
 
@@ -216,20 +233,26 @@ class App extends Component {
 
 
     <Form componentClass="fieldset" inline>
-      <FormGroup controlId="formValidationWarning4" validationState="warning">
-        <ControlLabel>Start Date</ControlLabel>{' '}
-        <Datetime ID="report1Start" input="false"/>
-        <FormControl.Feedback />
-      </FormGroup>{' '}
 
-      <FormGroup controlId="formValidationWarning4" validationState="warning">
-        <ControlLabel>End Date</ControlLabel>{' '}
-        <Datetime ID="reportEnd" input="false"/>
-        <FormControl.Feedback />
-      </FormGroup>{' '}
-    </Form>
+    <FormGroup controlId="formValidationWarning4" validationState="warning">
+      <ControlLabel>Start Date</ControlLabel>
+      <Datetime ID="report1Start" input="false" onChange={this.onChange}/>
+    </FormGroup>
+
+    <FormGroup controlId="formValidationWarning4" validationState="warning">
+      <ControlLabel>End Date</ControlLabel>
+      <Datetime ID="reportEnd" input="false" onChange={this.onChange}/>
+    </FormGroup>
+
+    <FormGroup>
+    <Col smOffset={2} sm={10}>
+      <Button type="submit" onClick={() =>{this.processFlightReport()}}>Generate</Button>
+    </Col>
+  </FormGroup>
+  </Form>
 
 
+>>>>>>> Stashed changes
 
 
                     </div>
