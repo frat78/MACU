@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Clock from 'react-live-clock';
-import {Tabs, Tab, ControlledTabs} from 'react-bootstrap';
+import {Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
 
 import './App.css';
@@ -103,7 +103,7 @@ class App extends Component {
 
           <div className="App">
 
-            <header className="App-header"> 
+            <header className="App-header">
               <div className="App-header-nav">
 
               </div>
@@ -125,8 +125,24 @@ class App extends Component {
 
                     <div className="Report-options">
 
-                        <font className="Report-title">Start Date:</font><Datetime ID="report1Start" input="false"/>
-                        <font className="Report-title">End Date:</font> <Datetime ID="report1End" />
+<form>
+
+    <Form componentClass="fieldset" inline>
+    <FormGroup controlId="formValidationWarning4" validationState="warning">
+      <ControlLabel>Start Date</ControlLabel>{' '}
+      <Datetime ID="report1Start" input="false"/>
+      <FormControl.Feedback />
+    </FormGroup>{' '}
+
+    <FormGroup controlId="formValidationWarning4" validationState="warning">
+      <ControlLabel>End Date</ControlLabel>{' '}
+      <Datetime ID="reportEnd" input="false"/>
+      <FormControl.Feedback />
+    </FormGroup>{' '}
+  </Form>
+
+  </form>
+
 
                     </div>
 
