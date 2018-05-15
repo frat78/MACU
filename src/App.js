@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import Clock from 'react-live-clock';
 import {Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
+import ReactTable from "react-table";
 
 import './App.css';
 
@@ -97,7 +98,34 @@ class App extends Component {
 
 
   render() {
-      { if (sessionKey === "") this.login() }
+    { if (sessionKey === "") this.login() }
+
+    
+    const data = [{
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }]
+
+    const columns = [{
+      Header: 'Name',
+      accessor: 'name' // String-based value accessors!
+    }, {
+      Header: 'Age',
+      accessor: 'age',
+      Cell: props => <span className='number'>{props.value}</span> 
+    }, {
+      id: 'friendName', // Required because our accessor is not a string
+      Header: 'Friend Name',
+      accessor: d => d.friend.name // Custom value accessors!
+    }, {
+      Header: props => <span>Friend Age</span>, // Custom header components!
+      accessor: 'friend.age'
+    }]
+    
 
     return (
 
@@ -147,7 +175,7 @@ class App extends Component {
                     </div>
 
                     <div className="Report-content">
-
+                      <ReactTable data={data} columns={columns} />
                     </div>
                   </Tab>
                   <Tab eventKey={2} title="Report 2">
