@@ -108,7 +108,67 @@ class App extends Component {
         name: 'Jason Maurer',
         age: 23,
       }
-    }]
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }, {
+      name: 'Tanner Linsley',
+      age: 26,
+      friend: {
+        name: 'Jason Maurer',
+        age: 23,
+      }
+    }
+
+
+
+    ]
 
     const columns = [{
       Header: 'Name',
@@ -153,28 +213,29 @@ class App extends Component {
 
                     <div className="Report-options">
 
-<form>
+
 
     <Form componentClass="fieldset" inline>
-    <FormGroup controlId="formValidationWarning4" validationState="warning">
-      <ControlLabel>Start Date</ControlLabel>{' '}
-      <Datetime ID="report1Start" input="false"/>
-      <FormControl.Feedback />
-    </FormGroup>{' '}
+      <FormGroup controlId="formValidationWarning4" validationState="warning">
+        <ControlLabel>Start Date</ControlLabel>{' '}
+        <Datetime ID="report1Start" input="false"/>
+        <FormControl.Feedback />
+      </FormGroup>{' '}
 
-    <FormGroup controlId="formValidationWarning4" validationState="warning">
-      <ControlLabel>End Date</ControlLabel>{' '}
-      <Datetime ID="reportEnd" input="false"/>
-      <FormControl.Feedback />
-    </FormGroup>{' '}
-  </Form>
+      <FormGroup controlId="formValidationWarning4" validationState="warning">
+        <ControlLabel>End Date</ControlLabel>{' '}
+        <Datetime ID="reportEnd" input="false"/>
+        <FormControl.Feedback />
+      </FormGroup>{' '}
+    </Form>
 
-  </form>
+
 
 
                     </div>
 
                     <div className="Report-content">
+                      <br />
                       <ReactTable data={data} columns={columns} />
                     </div>
                   </Tab>
