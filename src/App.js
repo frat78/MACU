@@ -2577,10 +2577,10 @@ class App extends Component {
                         <FormGroup>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <ControlLabel><div className="Report-options"></div></ControlLabel>
-                          <Button type="submit" onClick={() =>{this.processFlightReport()}}>Generate</Button>
+                          <Button bsStyle="primary" type="button" onClick={() =>{this.processFlightReport()}}>Generate</Button>
                           &nbsp;&nbsp;&nbsp;
                           <ControlLabel><div className="Report-options"></div></ControlLabel>
-                          <Button type="submit" onClick={() =>{this.exportToCSV()}}>Export To CSV</Button>
+                          <Button bsStyle="primary" type="button" onClick={() =>{this.exportToCSV()}}>Export To CSV</Button>
 
                         </FormGroup>
                       </Form>
