@@ -4,7 +4,6 @@ import Clock from 'react-live-clock';
 import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import ReactTable from "react-table";
-
 import './App.css';
 
 var sessionKey = "";
@@ -49,11 +48,11 @@ class App extends Component {
     {
       alert('start date:' + startdate + 'end date:' + enddate);
     }
-    
+
     //when changing form field values, capture the state
     // var state = this.state;
     // state[e.target.name].value = e.target.value;
-    // this.setState(state);    
+    // this.setState(state);
   }
 
   exportToCSV(e) {
@@ -2568,19 +2567,19 @@ class App extends Component {
 
                       <Form componentClass="fieldset" inline>
                         <FormGroup controlId="formValidationWarning4" validationState="warning">
-                          <ControlLabel><div className="Report-options">Start Date</div></ControlLabel>
-                          <Datetime ID="report1Start" input="false" onChange={this.onStartDateChange}/>
+                          <Datetime ID="report1Start" input="false" onChange={this.onStartDateChange} inputProps={{ placeholder: 'Enter Start date'}}/>
                         </FormGroup>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <FormGroup controlId="formValidationWarning4" validationState="warning">
-                          <ControlLabel><div className="Report-options">End Date</div></ControlLabel>
-                          <Datetime ID="reportEnd" input="false" onChange={this.onEndDateChange}/>
+                          <Datetime ID="reportEnd" input="false" onChange={this.onEndDateChange} inputProps={{ placeholder: 'Enter End date'}}/>
                         </FormGroup>
 
                         <FormGroup>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <ControlLabel><div className="Report-options"></div></ControlLabel>
                           <Button type="submit" onClick={() =>{this.processFlightReport()}}>Generate</Button>
                           &nbsp;&nbsp;&nbsp;
+                          <ControlLabel><div className="Report-options"></div></ControlLabel>
                           <Button type="submit" onClick={() =>{this.exportToCSV()}}>Export To CSV</Button>
 
                         </FormGroup>
