@@ -2563,7 +2563,7 @@ class App extends Component {
                       <h3>Flight Report 1</h3>
                     </div>
 
-                    <div className="Report-options">
+                    <div>
 
                       <Form componentClass="fieldset" inline>
                         <FormGroup controlId="formValidationWarning4" validationState="warning">
