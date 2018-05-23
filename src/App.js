@@ -4,6 +4,7 @@ import Clock from 'react-live-clock';
 import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import ReactTable from "react-table";
+import "react-table/react-table.css";
 import './App.css';
 
 var sessionKey = "";
@@ -2589,7 +2590,7 @@ class App extends Component {
 
                     <div className="Report-content">
                       <br />
-                      <ReactTable data={data} columns={columns} />
+                      <ReactTable data={data} columns={columns} defaultPageSize={10} className="-highlight"/>
                     </div>
                   </Tab>
                   <Tab eventKey={2} title="Report 2">
