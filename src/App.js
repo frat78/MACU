@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import Clock from 'react-live-clock';
 import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
-import ReactTable from "react-table";
+import ReactTable from 'react-table';
+import Parser from 'json2csv';
 import './App.css';
 
 var sessionKey = "";
@@ -56,7 +57,18 @@ class App extends Component {
   }
 
   exportToCSV(e) {
+    try {
+      if (this.state.data === undefined || this.state.data.length === 0) {
+          alert('No data to export');
+      } else {
+        // let's export some stuff
+        const Json2csvParser = require('json2csv').Parser;
+        var csvParser = new Json2csvParser();
 
+
+
+      }
+    } catch (ex) { console.log("ERROR IN EXPORT TO CSV::: " + ex) }
   }
 
   tabChange(key) {
@@ -68,22 +80,36 @@ class App extends Component {
     console.log("Attempting to query...");
 
     try {
-      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "'/>"
+      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='10000' />"
       var requestURL = "https://10.42.32.109/xos/poll/summary/flightreport1/"
       //var requestURL = "http://127.0.0.1:8000/xos/summary/flightreport1/"
 
       var xhttp = new XMLHttpRequest();
       //xhttp.setDisableHeaderCheck(true);
 
-      var that = this;
+      var that = this; // ugh
 
       //xhttp.responseText, responseXML, status, statusText, readyState
       xhttp.onreadystatechange = function() {
         if (this.responseText === "" || this.responseText === undefined) {
           // something happened or it's just a blank request
         } else {
-          console.log("RESPONSE===" + JSON.parse(this.responseText));
-          that.setState({data: JSON.parse(this.responseText).response.data});  
+          var jsonResponse = {};
+
+          try{
+            jsonResponse = JSON.parse(this.responseText);
+          } catch (ex) { console.log("ERROR PARSING JSON::: " + ex) }
+          
+          console.log("RESPONSE===" + jsonResponse);
+
+          if (jsonResponse !== {} && jsonResponse !== undefined) {
+            if (jsonResponse.response !== undefined) {
+              if (jsonResponse.response.status === "ok")
+                that.setState({data: jsonResponse.response.data});
+              else
+                console.log("ERROR IN JSON RESPONSE::: " + jsonResponse.response.data)
+            } // end if jsonResponse.response !== undefined
+          } // end if jsonResponse !== {}
         }
       };
 
@@ -91,7 +117,7 @@ class App extends Component {
       //xhttp.setRequestHeader("Cookie", "sessionid=" + sessionKey);
       xhttp.send(requestPayload);
 
-    } catch (ex) { console.log("ERRROR IN QUERY::: " + ex) }
+    } catch (ex) { console.log("ERROR IN QUERY::: " + ex) }
 
     console.log("Completed query...");
   }
@@ -116,7 +142,7 @@ class App extends Component {
       xhttp.setRequestHeader("Cookie", "sessionid=" + sessionKey);
       xhttp.send();
 
-    } catch (ex) { console.log("ERRROR IN QUERY::: " + ex) }
+    } catch (ex) { console.log("ERROR IN QUERY::: " + ex) }
 
     console.log("Completed query...");
   }
@@ -175,7 +201,8 @@ class App extends Component {
     const columns = [
     {
       Header: 'Time (UTC)',
-      accessor: 'time'
+      accessor: 'time',
+      width: 175
     }, {
       Header: 'Longitude',
       accessor: 'long'
