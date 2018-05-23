@@ -4,7 +4,7 @@ import Clock from 'react-live-clock';
 import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tabs, Tab, ControlledTabs} from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import ReactTable from "react-table";
-import "react-table/react-table.css";
+//import "react-table/react-table.css";
 import './App.css';
 
 var sessionKey = "";
