@@ -85,7 +85,7 @@ class App extends Component {
     console.log("Attempting to query...");
 
     try {
-      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='100' />"
+      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='10000' />"
       var requestURL = "https://10.42.32.109/xos/poll/summary/flightreport1/"
       //var requestURL = "http://127.0.0.1:8000/xos/summary/flightreport1/"
 
@@ -110,7 +110,7 @@ class App extends Component {
           if (jsonResponse !== {} && jsonResponse !== undefined) {
             if (jsonResponse.response !== undefined) {
               if (jsonResponse.response.status === "ok")
-                that.setState({data: jsonResponse.response.data});
+                that.setState({data: jsonResponse.response.data, loading: false});
               else
                 console.log("ERROR IN JSON RESPONSE::: " + jsonResponse.response.data)
             } // end if jsonResponse.response !== undefined
@@ -125,7 +125,7 @@ class App extends Component {
     } catch (ex) { console.log("ERROR IN QUERY::: " + ex) }
 
     console.log("Completed query...");
-    this.setState({loading: false});
+    
   }
 
   queryForTerminals() {
@@ -173,7 +173,7 @@ class App extends Component {
 
         if (this.responseText.indexOf("sessionkey") > -1) {
           sessionKey = this.responseText.substring(this.responseText.indexOf("sessionkey") + 12, this.responseText.indexOf("\"", this.responseText.indexOf("sessionkey") + 12 ));
-          that.queryForTerminals();
+          //that.queryForTerminals();
         }
 
 
@@ -203,7 +203,9 @@ class App extends Component {
         this.setState({data: []});
     }
 
-    const { loading } = this.state;
+    //var {loading}  = this.state.loading;
+
+
 
     const columns = [
     {
@@ -386,7 +388,7 @@ class App extends Component {
             <div className="App-header-content-spacer">&nbsp;</div>
 
             <div className="App-content">
-<Loadable active ={ loading } spinner spinnerSize='200px' text='Loading.... Please wait'>
+              <Loadable active ={ this.state.loading } spinner spinnerSize='200px' text='Loading.... Please wait'>
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                   <Tab eventKey={1} title="Report 1">
                     <div className="Report-title">
@@ -451,7 +453,7 @@ class App extends Component {
                     </div>
                   </Tab>
                 </Tabs>
-</Loadable>
+              </Loadable>
             </div>
         </div>
 
