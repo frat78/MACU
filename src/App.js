@@ -80,7 +80,7 @@ class App extends Component {
     console.log("Attempting to query...");
 
     try {
-      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='10000' />"
+      var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='100' />"
       var requestURL = "https://10.42.32.109/xos/poll/summary/flightreport1/"
       //var requestURL = "http://127.0.0.1:8000/xos/summary/flightreport1/"
 
