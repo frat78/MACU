@@ -5,6 +5,7 @@ import {Button, Form, FormControl, Col, InputGroup, FormGroup, ControlLabel, Tab
 import Datetime from 'react-datetime';
 import ReactTable from 'react-table';
 import Parser from 'json2csv';
+import Loadable from 'react-loading-overlay';
 import './App.css';
 
 var sessionKey = "";
@@ -15,7 +16,10 @@ class App extends Component {
   constructor(props){
     super(props);
 
-    this.state = {data: []};
+    this.state = {
+      data: [],
+      loading: false
+    };
 
     this.login = this.login.bind(this);
     this.queryForTerminals = this.queryForTerminals.bind(this);
@@ -77,6 +81,7 @@ class App extends Component {
   }
 
   queryForFlightReport1(startdate, enddate) {
+    this.setState({loading: true});
     console.log("Attempting to query...");
 
     try {
@@ -99,7 +104,7 @@ class App extends Component {
           try{
             jsonResponse = JSON.parse(this.responseText);
           } catch (ex) { console.log("ERROR PARSING JSON::: " + ex) }
-          
+
           console.log("RESPONSE===" + jsonResponse);
 
           if (jsonResponse !== {} && jsonResponse !== undefined) {
@@ -120,6 +125,7 @@ class App extends Component {
     } catch (ex) { console.log("ERROR IN QUERY::: " + ex) }
 
     console.log("Completed query...");
+    this.setState({loading: false});
   }
 
   queryForTerminals() {
@@ -197,6 +203,7 @@ class App extends Component {
         this.setState({data: []});
     }
 
+    const { loading } = this.state;
 
     const columns = [
     {
@@ -379,7 +386,7 @@ class App extends Component {
             <div className="App-header-content-spacer">&nbsp;</div>
 
             <div className="App-content">
-
+<Loadable active ={ loading } spinner spinnerSize='200px' text='Loading.... Please wait'>
                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                   <Tab eventKey={1} title="Report 1">
                     <div className="Report-title">
@@ -444,7 +451,7 @@ class App extends Component {
                     </div>
                   </Tab>
                 </Tabs>
-
+</Loadable>
             </div>
         </div>
 
