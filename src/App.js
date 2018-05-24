@@ -6,6 +6,7 @@ import Datetime from 'react-datetime';
 import ReactTable from 'react-table';
 import Parser from 'json2csv';
 import Loadable from 'react-loading-overlay';
+import download from 'downloadjs';
 import './App.css';
 
 var sessionKey = "";
@@ -22,7 +23,6 @@ class App extends Component {
     };
 
     this.login = this.login.bind(this);
-    this.queryForTerminals = this.queryForTerminals.bind(this);
     this.tabChange = this.tabChange.bind(this);
   }
 
@@ -65,12 +65,14 @@ class App extends Component {
       if (this.state.data === undefined || this.state.data.length === 0) {
           alert('No data to export');
       } else {
+        const fields = [{label: 'Time (UTC)',value: 'time'},{label: 'Longitude',value: 'long'},{label: 'Latitude',value: 'lat'},{label: 'Altitude',value: 'alt'},{label: 'Satellite_orbital_position',value: 'orbitalPosition'},{label: 'Satellite_inclination',value: 'inclination'},{label: 'Antenna_Azimuth',value: 'azimuth'},{label: 'Antenna_Elevation',value: 'elevation'},{label: 'Antenna_Polarization',value: 'polarization'},{label: 'Aircraft_Pitch_Axis',value: 'pitch'},{label: 'Aircraft_Roll_Axis',value: 'roll'},{label: 'Aircraft_Yaw_Axis',value: 'yaw'},{label: 'Antenna_Hunt_frequency',value: 'huntFreq'},{label: 'MODEM_running_code – MBC/OPER',value: 'modemRunningCode'},{label: 'MODEM_uptime (3 OIDs)',value: 'modemUptime'},{label: 'MODEM_RX_lock',value: 'modemRxLock'},{label: 'MODEM_SYNC_status',value: 'modemSyncStatus'},{label: 'MODEM_L2_status',value: 'modemL2Status'},{label: 'MODEM_L3_status',value: 'modemL3Status'},{label: 'MODEM_RX_level',value: 'modemRxLevel'},{label: 'MODEM_Noise_level',value: 'modemNoiseLevel'},{label: 'MODEM_TX_capability A',value: 'modemTxCapA'},{label: 'MODEM_TX_capability B',value: 'modemTxCapB'},{label: 'MODEM_TX_capability C',value: 'modemTxCapC'},{label: 'MODEM_TX_SYNC_power',value: 'modemTxSyncPower'},{label: 'MODEM_CPU_utilization current',value: 'modemCPUCurrent'},{label: 'MODEM_CPU_utilization last 5 minutes',value: 'modemCPULastFive'},{label: 'MODEM_RF_cluster_code',value: 'modemRFCluster'},{label: 'MODEM_Packet_received_from_satellite',value: 'modemPacketRx'},{label: 'MODEM_Packet_transmit_from_satellite',value: 'modemPacketTx'},{label: 'MODEM_Bytes_received_from_satellite',value: 'modemBytesRx'},{label: 'MODEM_Bytes_transmit_from_satellite',value: 'modemBytesTx'},{label: 'MODEM_packet_drops',value: 'modemPacketDrops'},{label: 'Last_openAMIP_`B`_message',value: 'openAMIPB'},{label: 'Last_openAMIP_`E`_message',value: 'openAMIPE'},{label: 'Last_openAMIP_`H`_message',value: 'openAMIPH'},{label: 'Last_openAMIP_`I`_message',value: 'openAMIPI'},{label: 'Last_openAMIP_`K`_message',value: 'openAMIPK'},{label: 'Last_openAMIP_`L`_message',value: 'openAMIPL'},{label: 'Last_openAMIP_`P`_message',value: 'openAMIPP'},{label: 'Last_openAMIP_`S`_message',value: 'openAMIPS'},{label: 'Last openAMIP_`T`_message',value: 'openAMIPT'},{label: 'Last openAMIP_`i`_message',value: 'openAMIPLoweri'},{label: 'Last openAMIP_`s`_message',value: 'openAMIPLowers'},{label: 'Last openAMIP_`w`_message',value: 'openAMIPw'},{label: 'Last openAMIP_`X`_message',value: 'openAMIPX'},{label: 'Last openAMIP_`A`_message',value: 'openAMIPA'},{label: 'MODEM TX Mute (0/Mute cause)',value: 'modemTxMute'},{label: 'All MODEM Discrete lines Input and outputs status',value: 'modemAllDiscrete'},{label: 'KANDU TX Mute status (0 / Mute cause)',value: 'kanduTxMute'},{label: 'Elevator trim offset',value: 'elevatorTrimOffset'},{label: 'Establish Homing',value: 'establishHoming'},{label: 'Last Homing step errors',value: 'lastHomingStepErrors'}];
+
         // let's export some stuff
         const Json2csvParser = require('json2csv').Parser;
-        var csvParser = new Json2csvParser();
+        const csvParser = new Json2csvParser({fields});
+        const csv = csvParser.parse(this.state.data, {fields});
 
-
-
+        download(csv, "MACU_FlightReport1_" + this.state.startdate + "_" + this.state.enddate + ".csv", "text/csv");
       }
     } catch (ex) { console.log("ERROR IN EXPORT TO CSV::: " + ex) }
   }
@@ -81,10 +83,13 @@ class App extends Component {
   }
 
   queryForFlightReport1(startdate, enddate) {
-    this.setState({loading: true});
+    
     console.log("Attempting to query...");
 
     try {
+
+      this.setState({loading: true});
+
       var requestPayload = "<QUERY_PARAMS START_DATE='" + startdate + "' END_DATE='" + enddate + "' ROWS='10000' />"
       var requestURL = "https://10.42.32.109/xos/poll/summary/flightreport1/"
       //var requestURL = "http://127.0.0.1:8000/xos/summary/flightreport1/"
@@ -101,7 +106,7 @@ class App extends Component {
         } else {
           var jsonResponse = {};
 
-          try{
+          try {
             jsonResponse = JSON.parse(this.responseText);
           } catch (ex) { console.log("ERROR PARSING JSON::: " + ex) }
 
@@ -128,31 +133,6 @@ class App extends Component {
     
   }
 
-  queryForTerminals() {
-    console.log("Attempting to query...");
-
-    try {
-      //var requestPayload = "username=admin&password=admin"
-      //var requestURL = "http://127.0.0.1:8000/xos/summary/getlist/terminals/"
-      var requestURL = "https://10.42.32.109/xos/summary/getlist/terminals/"
-
-      var xhttp = new XMLHttpRequest();
-      //xhttp.setDisableHeaderCheck(true);
-
-      //xhttp.responseText, responseXML, status, statusText, readyState
-      xhttp.onreadystatechange = function() {
-        console.log("RESPONSE===" + this.responseText);
-      };
-
-      xhttp.open("GET", requestURL);
-      xhttp.setRequestHeader("Cookie", "sessionid=" + sessionKey);
-      xhttp.send();
-
-    } catch (ex) { console.log("ERROR IN QUERY::: " + ex) }
-
-    console.log("Completed query...");
-  }
-
   login() {
     console.log("Attempting to login...");
 
@@ -175,7 +155,6 @@ class App extends Component {
           sessionKey = this.responseText.substring(this.responseText.indexOf("sessionkey") + 12, this.responseText.indexOf("\"", this.responseText.indexOf("sessionkey") + 12 ));
           //that.queryForTerminals();
         }
-
 
         if (this.readyState == 4 && this.status == 200) {
           //var xmlMsg = this.responseXML;
@@ -202,10 +181,6 @@ class App extends Component {
       if (this.state.data === null || this.state.data === undefined)
         this.setState({data: []});
     }
-
-    //var {loading}  = this.state.loading;
-
-
 
     const columns = [
     {
