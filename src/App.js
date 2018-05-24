@@ -84,7 +84,7 @@ class App extends Component {
       var requestURL = "https://10.42.32.109/xos/poll/summary/flightreport1/"
       //var requestURL = "http://127.0.0.1:8000/xos/summary/flightreport1/"
 
-      var xhttp = new XMLHttpRequest();
+      var xhttp = new XMLHttpRequest(); 
       //xhttp.setDisableHeaderCheck(true);
 
       var that = this; // ugh
